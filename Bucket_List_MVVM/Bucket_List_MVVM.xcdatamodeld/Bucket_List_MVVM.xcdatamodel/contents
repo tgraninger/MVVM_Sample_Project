@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="BLCategoryMO" representedClassName="BLCategoryMO" syncable="YES" codeGenerationType="class">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="items" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BLItemMO" inverseName="category" inverseEntity="BLItemMO" syncable="YES"/>
+    </entity>
+    <entity name="BLItemLocationMO" representedClassName="BLItemLocationMO" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="item" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BLItemMO" inverseName="location" inverseEntity="BLItemMO" syncable="YES"/>
+    </entity>
+    <entity name="BLItemMO" representedClassName="BLItemMO" syncable="YES" codeGenerationType="class">
+        <attribute name="dateAdded" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BLCategoryMO" inverseName="items" inverseEntity="BLCategoryMO" syncable="YES"/>
+        <relationship name="location" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="BLItemLocationMO" inverseName="item" inverseEntity="BLItemLocationMO" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BLCategoryMO" positionX="-351" positionY="-237" width="128" height="28"/>
+        <element name="BLItemMO" positionX="-110" positionY="-234" width="128" height="28"/>
+        <element name="BLItemLocationMO" positionX="-36" positionY="36" width="128" height="28"/>
+    </elements>
+</model>
