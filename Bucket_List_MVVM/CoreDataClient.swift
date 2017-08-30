@@ -40,22 +40,23 @@ class CoreDataClient {
 	}
 	
 	func setDefaultValues() {
-		let data = ["Venues", "Places", "Museums", "Films", "Restaurants"]
+		let data = [["name" : "Countries"], ["name" : "Venues"], ["name" : "Restaurants"]]
 		var defaultValues = [BLCategoryMO]()
 		
-		for i in 0...4 {
+		for i in 0...2 {
 			let context = getContext()
 			
 			let entity =  NSEntityDescription.entity(forEntityName: "BLCategoryMO", in: context)
 			
 			let category = NSManagedObject(entity: entity!, insertInto: context)
 			
-			category.setValue(data[i], forKey: "name")
+			category.setValue(data[i]["name"], forKey: "name")
 			
 			saveChanges(context, completion: { 
 				defaultValues.append(category as! BLCategoryMO)
 			})
 		}
+		
 		delegate.setCategories!(defaultValues)
 	}
 	
@@ -69,6 +70,9 @@ class CoreDataClient {
 		object.setValue(newObject["name"], forKey: "name")
 		
 		if entityName == "BLItemMO" {
+			object.setValue(newObject["category"], forKey: "category")
+			object.setValue(Date(), forKey: "dateAdded")
+			
 			delegate.addedItem!(object as! BLItemMO)
 		}
 	}

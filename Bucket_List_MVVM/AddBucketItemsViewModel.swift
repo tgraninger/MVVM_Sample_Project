@@ -35,7 +35,7 @@ class AddBucketItemViewModel {
 		
 		client.delegate = self
 		
-		client.insertObject(["name" : name, "category" : selectedCategory], entityName: "BLItemMO")
+		client.insertObject(["name" : name, "category" : selectedCategory, "completed" : false], entityName: "BLItemMO")
 	}
 	
 	func setName(_ name: String?) {
@@ -55,13 +55,7 @@ class AddBucketItemViewModel {
 	}
 	
 	func saveItem() {
-		guard let newItem = newItem else { return }
-		
-		let items = Array(selectedCategory.items)
-		
-		items.append(newItem)
-		
-//		selectedCategory.items = 
+		guard let newItem = newItem else { return } //Should throw alert
 		
 		selectedCategory.addToItems(newItem)
 		
@@ -75,9 +69,6 @@ extension AddBucketItemViewModel: CoreDataClientDelegate {
 	
 	func addedItem(_ item: BLItemMO) {
 		newItem = item
-		
-		newItem!.category = selectedCategory
-		newItem!.dateAdded = NSDate()
 		
 		delegate.nameValidated(true)
 	}

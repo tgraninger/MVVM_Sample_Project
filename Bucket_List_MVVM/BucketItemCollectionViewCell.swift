@@ -12,13 +12,19 @@ class BucketItemCollectionViewCell: UICollectionViewCell {
 	
 	@IBOutlet weak var itemImageView: UIImageView!
 	@IBOutlet weak var itemNameLabel: UILabel!
+	@IBOutlet weak var itemDateLabel: UILabel!
 	
-	func setCellData(_ imageUrlString: String?, itemName: String) {
-		self.itemNameLabel.text = itemName
+	func setCellData(_ item: BLItemMO) {
+		self.itemNameLabel.text = item.name
 		
-		if imageUrlString != nil {
-			self.itemImageView.imageFromUrl(imageUrlString!)
+		if item.imageString != nil {
+			self.itemImageView.imageFromUrl(item.imageString!)
+		}
+		
+		if item.dateCompleted != nil {
+			self.itemDateLabel.text = item.dateCompleted!.formatDate(item.dateCompleted!)
+		} else {
+			self.itemDateLabel.text = item.dateAdded!.formatDate(item.dateAdded!)
 		}
 	}
-    
 }

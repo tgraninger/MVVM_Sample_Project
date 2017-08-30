@@ -21,6 +21,10 @@ class BucketItemsViewController: UIViewController {
         super.viewDidLoad()
 		
 		viewModel.delegate = self
+
+		self.title = viewModel.selectedCategory.name
+		self.edgesForExtendedLayout = []
+		self.automaticallyAdjustsScrollViewInsets = false
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -40,12 +44,25 @@ class BucketItemsViewController: UIViewController {
 		if segue.identifier == "pushAddItemViewController" {
 			let viewController = segue.destination as! AddBucketListItemViewController
 			
+			viewController.delegate = self
+
 			viewController.viewModel = AddBucketItemViewModel()
 			
 			viewController.viewModel.selectedCategory = viewModel.selectedCategory
+		} else if segue.identifier == "showMapViewController" {
+			let viewController = segue.destination as! MapViewController
+			
+			viewController.viewModel = MapViewModel()
+			
+			let selectedIndex: IndexPath! = collectionView.indexPathsForSelectedItems![0]
+			
+			viewController.viewModel.item = viewModel.dataStore![selectedIndex.row]
+			viewController.viewModel.settingLocation = false
 		}
     }
 }
+
+// MARK: - Collection View Data Source
 
 extension BucketItemsViewController: UICollectionViewDataSource {
 	
@@ -58,16 +75,18 @@ extension BucketItemsViewController: UICollectionViewDataSource {
 		
 		let item = viewModel.dataStore![indexPath.row]
 		
-		cell.setCellData(item.imageString, itemName: item.name!)
+		cell.setCellData(item)
 		
 		return cell
 	}
 }
 
+// MARK: - Collection View Delegate
+
 extension BucketItemsViewController: UICollectionViewDelegate {
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		
+		self.performSegue(withIdentifier: "showMapViewController", sender: self)
 	}
 }
 
@@ -75,11 +94,11 @@ extension BucketItemsViewController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 		
-		let length = collectionView.bounds.width / 2
-		
-		return CGSize(width: length, height: length)
+		return CGSize(width: collectionView.bounds.width - 20, height: (collectionView.bounds.height - 50) / 4)
 	}
 }
+
+// MARK: - View Model Delegate
 
 extension BucketItemsViewController: BucketItemsViewModelDelegate {
 	
@@ -93,7 +112,23 @@ extension BucketItemsViewController: BucketItemsViewModelDelegate {
 			UIView.animate(withDuration: 0.5, animations: { 
 				self.view.setNeedsLayout()
 			})
+		} else {
+			headerLabelHeightConstraint.constant = 0
+			headerLabelTopLayoutVerticalSpacing.constant = 0
+			
+			UIView.animate(withDuration: 0.5, animations: { 
+				self.view.setNeedsLayout()
+			})
 		}
+	}
+}
+
+// MARK: - Add Item View Controller Delegate
+
+extension BucketItemsViewController: AddBucketListItemViewControllerDelegate {
+	
+	func shareUpdates(_ hasItems: Bool) {
+		viewModel.hasItems = hasItems
 	}
 }
 

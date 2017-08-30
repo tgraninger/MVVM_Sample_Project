@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE036EFC1F572F7500F736C6 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE036EFB1F572F7500F736C6 /* Helper.swift */; };
+		CE036EFE1F573C3700F736C6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE036EFD1F573C3700F736C6 /* MapViewController.swift */; };
+		CE036F001F573C8100F736C6 /* LocationServicesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE036EFF1F573C8100F736C6 /* LocationServicesClient.swift */; };
+		CE036F021F57699E00F736C6 /* BLItemLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE036F011F57699E00F736C6 /* BLItemLocation.swift */; };
 		CE0753031F54D288007B8AE2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0753021F54D288007B8AE2 /* AppDelegate.swift */; };
 		CE07530B1F54D288007B8AE2 /* Bucket_List_MVVM.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE0753091F54D288007B8AE2 /* Bucket_List_MVVM.xcdatamodeld */; };
 		CE07530D1F54D288007B8AE2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE07530C1F54D288007B8AE2 /* Assets.xcassets */; };
@@ -33,6 +37,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE036EFB1F572F7500F736C6 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		CE036EFD1F573C3700F736C6 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CE036EFF1F573C8100F736C6 /* LocationServicesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationServicesClient.swift; sourceTree = "<group>"; };
+		CE036F011F57699E00F736C6 /* BLItemLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BLItemLocation.swift; sourceTree = "<group>"; };
 		CE0752FF1F54D288007B8AE2 /* Bucket_List_MVVM.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bucket_List_MVVM.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE0753021F54D288007B8AE2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE07530A1F54D288007B8AE2 /* Bucket_List_MVVM.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Bucket_List_MVVM.xcdatamodel; sourceTree = "<group>"; };
@@ -71,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE036EF81F570D5000F736C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CE036F011F57699E00F736C6 /* BLItemLocation.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		CE0752F61F54D288007B8AE2 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +117,8 @@
 				CE0753391F5500A0007B8AE2 /* Views */,
 				CE07533A1F5516F7007B8AE2 /* Cells */,
 				CE07533D1F551C3A007B8AE2 /* Extensions.swift */,
+				CE036EFB1F572F7500F736C6 /* Helper.swift */,
+				CE036EF81F570D5000F736C6 /* Models */,
 			);
 			path = Bucket_List_MVVM;
 			sourceTree = "<group>";
@@ -126,6 +144,7 @@
 				CE0753281F54D396007B8AE2 /* BucketItemsViewController.swift */,
 				CE07532C1F54D3A9007B8AE2 /* AddBucketListItemViewController.swift */,
 				CE07532E1F54D3B6007B8AE2 /* AddImageViewController.swift */,
+				CE036EFD1F573C3700F736C6 /* MapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -144,6 +163,7 @@
 			children = (
 				CE0753351F54DB1C007B8AE2 /* CoreDataClient.swift */,
 				CE0753411F55D3E5007B8AE2 /* ImageSearchClient.swift */,
+				CE036EFF1F573C8100F736C6 /* LocationServicesClient.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -247,16 +267,20 @@
 				CE0753441F55D69D007B8AE2 /* AlertView.swift in Sources */,
 				CE0753251F54D372007B8AE2 /* AddLocationViewModel.swift in Sources */,
 				CE07533C1F551740007B8AE2 /* BucketItemCollectionViewCell.swift in Sources */,
+				CE036EFC1F572F7500F736C6 /* Helper.swift in Sources */,
 				CE0753401F55D09B007B8AE2 /* ImageCollectionViewCell.swift in Sources */,
 				CE07531D1F54D344007B8AE2 /* CategoriesViewModel.swift in Sources */,
+				CE036EFE1F573C3700F736C6 /* MapViewController.swift in Sources */,
 				CE0753211F54D35E007B8AE2 /* AddBucketItemsViewModel.swift in Sources */,
 				CE0753031F54D288007B8AE2 /* AppDelegate.swift in Sources */,
 				CE0753361F54DB1C007B8AE2 /* CoreDataClient.swift in Sources */,
 				CE07532D1F54D3A9007B8AE2 /* AddBucketListItemViewController.swift in Sources */,
 				CE07532B1F54D39F007B8AE2 /* AddCategoryViewController.swift in Sources */,
 				CE07532F1F54D3B6007B8AE2 /* AddImageViewController.swift in Sources */,
+				CE036F001F573C8100F736C6 /* LocationServicesClient.swift in Sources */,
 				CE07530B1F54D288007B8AE2 /* Bucket_List_MVVM.xcdatamodeld in Sources */,
 				CE07533E1F551C3A007B8AE2 /* Extensions.swift in Sources */,
+				CE036F021F57699E00F736C6 /* BLItemLocation.swift in Sources */,
 				CE0753291F54D396007B8AE2 /* BucketItemsViewController.swift in Sources */,
 				CE0753321F54D420007B8AE2 /* CategoriesViewController.swift in Sources */,
 			);

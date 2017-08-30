@@ -29,7 +29,6 @@ class ImageSearchClient {
 		request.httpMethod = "GET"
 		
 		let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-			
 			guard let responseData: Data = data, error == nil
 				else { return }
 			
@@ -41,7 +40,9 @@ class ImageSearchClient {
 			var images = [String]()
 			
 			for item in hits {
-				images.append(item["webformatURL"] as! String)
+				let image = item["webformatURL"] as! String
+				
+				images.append(image)
 			}
 			
 			DispatchQueue.main.async {
@@ -54,5 +55,4 @@ class ImageSearchClient {
 		}
 		task.resume()
 	}
-	
 }

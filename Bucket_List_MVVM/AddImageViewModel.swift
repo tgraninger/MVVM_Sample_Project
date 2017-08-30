@@ -16,16 +16,17 @@ protocol AddImageViewModelDelegate: class {
 class AddImageViewModel {
 	
 	weak var delegate: AddImageViewModelDelegate!
-
 	var newItem: BLItemMO!
 	var dataStore: [String]?
 	
-	func fetchImages() {
+	func fetchImages(_ searchText: String?) {
+		let searchText: String! = searchText ?? newItem.name
+		
 		let client = ImageSearchClient()
 		
 		client.delegate = self
 		
-		client.fetchImagesForItem(newItem.name!)
+		client.fetchImagesForItem(searchText)
 	}
 	
 	func setImage(_ index: Int) {
@@ -42,6 +43,7 @@ extension AddImageViewModel: ImageSearchClientDelegate {
 			// Alert
 		} else {
 			dataStore = images
+
 			delegate.reloadData()
 		}
 	}

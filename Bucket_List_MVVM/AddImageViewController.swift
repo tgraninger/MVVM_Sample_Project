@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 protocol AddImageViewControllerDelegate: class {
 	func shareItem(_ item: BLItemMO)
@@ -14,6 +15,7 @@ protocol AddImageViewControllerDelegate: class {
 
 class AddImageViewController: UIViewController {
 
+	@IBOutlet weak var searchBar: UISearchBar!
 	@IBOutlet weak var collectionView: UICollectionView!
 	
 	var viewModel: AddImageViewModel!
@@ -26,7 +28,10 @@ class AddImageViewController: UIViewController {
 		
 		viewModel.delegate = self
 		
-		viewModel.fetchImages()
+		viewModel.fetchImages(viewModel.newItem.name)
+		
+		self.edgesForExtendedLayout = []
+		self.automaticallyAdjustsScrollViewInsets = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,10 +87,14 @@ extension AddImageViewController: UICollectionViewDelegate {
 extension AddImageViewController: UICollectionViewDelegateFlowLayout {
 	
 	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-		
-		let length = (collectionView.frame.width - 30) / 2
-		
-		return CGSize(width: length, height: length)
+		return CGSize(width: (collectionView.bounds.width - 10) / 2, height: (collectionView.bounds.width - 10) / 2)
+	}
+}
+
+extension AddImageViewController: UISearchBarDelegate {
+	
+	func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+		viewModel.fetchImages(searchText)
 	}
 }
 

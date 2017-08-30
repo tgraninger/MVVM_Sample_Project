@@ -20,6 +20,7 @@ class CategoriesViewController: UIViewController {
         super.viewDidLoad()
 		
 		viewModel = CategoriesViewModel()
+		
 		viewModel.delegate = self
 		
 		self.edgesForExtendedLayout = []

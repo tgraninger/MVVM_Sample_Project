@@ -23,13 +23,10 @@ class BucketItemsViewModel {
 	func setItems() {
 		guard let items = Array(selectedCategory.items!) as? [BLItemMO] else { return }
 		
-		for item in items {
-			print(item.name)
-		}
-		
-		if items.count < 0 {
+		if items.count != 0 {
 			hasItems = true
-			dataStore = items
+			
+			dataStore = Helper().sort(items) as? [BLItemMO]
 		} else {
 			hasItems = false
 		}

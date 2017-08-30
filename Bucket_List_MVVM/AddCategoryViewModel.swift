@@ -27,9 +27,7 @@ class AddCategoryViewModel {
 		let newCategory: [String : Any] = ["name" : name]
 		
 		let client = CoreDataClient()
-		
 		client.delegate = self
-		
 		client.insertObject(newCategory, entityName: "BLCategoryMO")
 	}
 }
