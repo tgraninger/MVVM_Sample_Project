@@ -27,7 +27,7 @@ class AddCategoryViewController: UIViewController {
 	@IBAction func saveButtonPressed(_ sender: UIButton) {
 		//dimmerView = DimmerView(frame: self.view.bounds)
 		
-		self.view.addSubview(dimmerView!)
+		//self.view.addSubview(dimmerView!)
 		
 		viewModel.delegate = self
 		

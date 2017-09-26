@@ -13,7 +13,7 @@ protocol MapViewModelDelegate: class {
 	func setPlacemark(_ placemark: MKPlacemark)
 	func setRegion(_ region: MKCoordinateRegion)
 	func setAddress(_ address: String)
-//	func updateSearchResults()
+	func updateLocationSearchResults(_ mapItems: [MKMapItem])
 }
 
 class MapViewModel {
@@ -22,10 +22,10 @@ class MapViewModel {
 	var settingLocation: Bool!
 	var item: BLItemMO?
 	var itemLocation: BLItemLocation?
-	var searchResults: [MKMapItem]?
 	
 	func fetchLocation() {
-		let client = LocationServicesClient()
+		
+		let client = LocationServicesClient.sharedInstance
 		
 		client.delegate = self
 		
@@ -51,13 +51,22 @@ extension MapViewModel: LocationServicesClientDelegate {
 		itemLocation = location
 		
 		let placemark = MKPlacemark(placemark: location.placemark)
+		let address = itemLocation!.setAddress()
+		let region = itemLocation!.setRegion()!
 		
-		delegate.setPlacemark(placemark)
-		delegate.setAddress(itemLocation!.setAddress())
-		delegate.setRegion(itemLocation!.setRegion()!)
+		self.delegate.setAddress(address)
+		self.delegate.setPlacemark(placemark)
+		self.delegate.setRegion(region)
 	}
 	
-	func locationSearchResults(_ locations: [MKMapItem]) {
-		searchResults = locations
+	func updateLocationSearchResults(_ locations: [MKMapItem]?) {
+		guard let locations = locations else { return }
+		
+		let coordinate = locations.first?.placemark.coordinate
+		let span = MKCoordinateSpanMake(1.0, 1.0)
+		
+		self.delegate.setRegion(MKCoordinateRegionMake(coordinate!, span))
+		
+		delegate.updateLocationSearchResults(locations)
 	}
 }

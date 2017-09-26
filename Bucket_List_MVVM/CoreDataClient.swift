@@ -51,12 +51,11 @@ class CoreDataClient {
 			let category = NSManagedObject(entity: entity!, insertInto: context)
 			
 			category.setValue(data[i]["name"], forKey: "name")
+						
+			saveChanges()
 			
-			saveChanges(context, completion: { 
-				defaultValues.append(category as! BLCategoryMO)
-			})
+			defaultValues.append(category as! BLCategoryMO)
 		}
-		
 		delegate.setCategories!(defaultValues)
 	}
 	
@@ -77,8 +76,8 @@ class CoreDataClient {
 		}
 	}
 	
-	func saveChanges(_ context: NSManagedObjectContext?, completion: (() -> Void)? = nil) {
-		let context = context ?? getContext()
+	func saveChanges() {
+		let context = getContext()
 		
 		do {
 			try context.save()

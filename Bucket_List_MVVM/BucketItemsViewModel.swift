@@ -14,21 +14,15 @@ protocol BucketItemsViewModelDelegate: class {
 
 class BucketItemsViewModel {
 	
-	var selectedCategory: BLCategoryMO!
 	var dataStore: [BLItemMO]?
-	var hasItems: Bool!
 	
 	weak var delegate: BucketItemsViewModelDelegate!
 	
 	func setItems() {
-		guard let items = Array(selectedCategory.items!) as? [BLItemMO] else { return }
+		guard let items = dataStore else { return }
 		
 		if items.count != 0 {
-			hasItems = true
-			
 			dataStore = Helper().sort(items) as? [BLItemMO]
-		} else {
-			hasItems = false
 		}
 		
 		delegate.reloadData()

@@ -46,7 +46,6 @@ class CategoriesViewController: UIViewController {
 			let selectedCategory = viewModel.dataStore![selectedIndexPath.row]
 			
 			viewController.viewModel = BucketItemsViewModel()
-			viewController.viewModel.selectedCategory = selectedCategory
 		}
     }
 

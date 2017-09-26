@@ -61,7 +61,7 @@ class AddBucketItemViewModel {
 		
 		let client = CoreDataClient()
 		
-		client.saveChanges(nil, completion: nil)
+		client.saveChanges()
 	}
 }
 

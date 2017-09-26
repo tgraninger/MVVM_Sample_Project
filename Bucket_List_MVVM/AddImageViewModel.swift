@@ -8,9 +8,9 @@
 
 import Foundation
 
-protocol AddImageViewModelDelegate: class {
+@objc protocol AddImageViewModelDelegate: class {
 	func reloadData()
-	func dismissViewController()
+	@objc optional func dismissViewController()
 }
 
 class AddImageViewModel {
@@ -32,7 +32,7 @@ class AddImageViewModel {
 	func setImage(_ index: Int) {
 		newItem.imageString = dataStore![index]
 		
-		delegate.dismissViewController()
+		delegate.dismissViewController!()
 	}
 }
 

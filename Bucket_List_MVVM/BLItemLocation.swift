@@ -31,12 +31,13 @@ class BLItemLocation {
 	func setAddress() -> String {
 		guard let placemark = placemark else { return "" }
 		
+		let streetNumber = placemark.subThoroughfare ?? ""
 		let address = placemark.thoroughfare ?? ""
 		let locality = placemark.locality ?? ""
 		let adminArea = placemark.administrativeArea ?? ""
 		let zip = placemark.postalCode ?? ""
 		
-		return "\(address)\n \(locality), \(adminArea)\n, \(zip)"
+		return "\(streetNumber) \(address)\n \(locality), \(adminArea)\n \(zip)"
 	}
 	
 	func setRegion() -> MKCoordinateRegion? {
@@ -45,7 +46,7 @@ class BLItemLocation {
 		guard let location = placemark.location else { return nil }
 		
 		let center = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-		let span = MKCoordinateSpanMake(0.2, 0.2)
+		let span = MKCoordinateSpanMake(50.0, 50.0)
 		
 		return MKCoordinateRegionMake(center, span)
 	}

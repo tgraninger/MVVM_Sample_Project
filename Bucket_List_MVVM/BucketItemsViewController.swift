@@ -12,9 +12,6 @@ class BucketItemsViewController: UIViewController {
 
 	@IBOutlet weak var collectionView: UICollectionView!
 	
-	@IBOutlet weak var headerLabelHeightConstraint: NSLayoutConstraint!
-	@IBOutlet weak var headerLabelTopLayoutVerticalSpacing: NSLayoutConstraint!
-	
 	var viewModel: BucketItemsViewModel!
 	
     override func viewDidLoad() {
@@ -22,7 +19,6 @@ class BucketItemsViewController: UIViewController {
 		
 		viewModel.delegate = self
 
-		self.title = viewModel.selectedCategory.name
 		self.edgesForExtendedLayout = []
 		self.automaticallyAdjustsScrollViewInsets = false
     }
@@ -44,11 +40,8 @@ class BucketItemsViewController: UIViewController {
 		if segue.identifier == "pushAddItemViewController" {
 			let viewController = segue.destination as! AddBucketListItemViewController
 			
-			viewController.delegate = self
-
 			viewController.viewModel = AddBucketItemViewModel()
 			
-			viewController.viewModel.selectedCategory = viewModel.selectedCategory
 		} else if segue.identifier == "showMapViewController" {
 			let viewController = segue.destination as! MapViewController
 			
@@ -104,31 +97,6 @@ extension BucketItemsViewController: BucketItemsViewModelDelegate {
 	
 	func reloadData() {
 		collectionView.reloadData()
-		
-		if viewModel.hasItems == false {
-			headerLabelHeightConstraint.constant = 44
-			headerLabelTopLayoutVerticalSpacing.constant = 12
-			
-			UIView.animate(withDuration: 0.5, animations: { 
-				self.view.setNeedsLayout()
-			})
-		} else {
-			headerLabelHeightConstraint.constant = 0
-			headerLabelTopLayoutVerticalSpacing.constant = 0
-			
-			UIView.animate(withDuration: 0.5, animations: { 
-				self.view.setNeedsLayout()
-			})
-		}
-	}
-}
-
-// MARK: - Add Item View Controller Delegate
-
-extension BucketItemsViewController: AddBucketListItemViewControllerDelegate {
-	
-	func shareUpdates(_ hasItems: Bool) {
-		viewModel.hasItems = hasItems
 	}
 }
 

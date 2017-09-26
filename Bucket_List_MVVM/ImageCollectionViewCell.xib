@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ImageCollectionViewCell" customModule="Bucket_List_MVVM" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="AM2-1x-3wD" userLabel="aImageView">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="AM2-1x-3wD" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="33K-Yi-HwM"/>
+                <constraint firstAttribute="trailing" secondItem="AM2-1x-3wD" secondAttribute="trailing" id="C2s-rb-5wT"/>
+                <constraint firstAttribute="bottom" secondItem="AM2-1x-3wD" secondAttribute="bottom" id="OcB-3d-eKj"/>
+                <constraint firstItem="AM2-1x-3wD" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="z5g-be-36s"/>
+            </constraints>
+            <connections>
+                <outlet property="aImageView" destination="AM2-1x-3wD" id="U1m-9w-1uQ"/>
+            </connections>
+        </view>
+    </objects>
+</document>

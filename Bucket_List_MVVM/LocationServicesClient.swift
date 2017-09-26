@@ -7,35 +7,44 @@
 //
 
 import Foundation
-import CoreLocation
 import MapKit
 
 protocol LocationServicesClientDelegate: class {
 	func setLocation(_ location: BLItemLocation)
-	func locationSearchResults(_ locations: [MKMapItem])
+	func updateLocationSearchResults(_ locations: [MKMapItem]?)
 }
 
 class LocationServicesClient: NSObject, CLLocationManagerDelegate {
 	
-	private let locationManager = CLLocationManager()
+	static let sharedInstance = LocationServicesClient()
+	
 	var location: CLLocation?
 	weak var delegate: LocationServicesClientDelegate!
+	var locationManager: CLLocationManager!
 	
-	func fetchLocation(_ location: BLItemLocationMO?) {
+	override init() {
+		super.init()
 		
-		locationManager.delegate = self
+		self.locationManager = CLLocationManager()
+		
+		guard let locationManager = self.locationManager else { return }
 		
 		switch CLLocationManager.authorizationStatus() {
 		case .notDetermined, .restricted, .denied:
 			locationManager.requestWhenInUseAuthorization()
 			break
 		default:
-			if location != nil {
-				geocodeLocation(["latitude" : location!.latitude, "longitude" : location!.longitude])
-			} else {
-				locationManager.startUpdatingLocation()
-			}
 			break
+		}
+		
+		locationManager.delegate = self
+	}
+	
+	func fetchLocation(_ location: BLItemLocationMO?) {
+		if location != nil {
+			geocodeLocation(["latitude" : location!.latitude, "longitude" : location!.longitude])
+		} else {
+			self.locationManager.startUpdatingLocation()
 		}
 	}
 	
@@ -67,7 +76,8 @@ class LocationServicesClient: NSObject, CLLocationManagerDelegate {
 		if CLLocationManager.locationServicesEnabled() {
 			switch CLLocationManager.authorizationStatus() {
 			case .notDetermined, .restricted, .denied:
-				locationManager.requestWhenInUseAuthorization()
+				self.locationManager.requestWhenInUseAuthorization()
+				break
 			default:
 				break
 			}
@@ -75,16 +85,14 @@ class LocationServicesClient: NSObject, CLLocationManagerDelegate {
 	}
 	
 	func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-		if locations.first != nil {
-			locationManager.stopUpdatingLocation()
+		guard let location = locations.last else { return }
+		
+		self.locationManager.stopUpdatingLocation()
+		
+		let lat = location.coordinate.latitude
+		let ln = location.coordinate.longitude
 			
-			let l = locations.first!
-			
-			let lat = l.coordinate.latitude
-			let ln = l.coordinate.longitude
-			
-			geocodeLocation(["latitude" : lat, "longitude" : ln])
-		}
+		geocodeLocation(["latitude" : lat, "longitude" : ln])
 	}
 	
 	func searchLocation(text: String) {
@@ -92,18 +100,17 @@ class LocationServicesClient: NSObject, CLLocationManagerDelegate {
 		let request = MKLocalSearchRequest()
 		request.naturalLanguageQuery = text
 		
-		let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-		request.region = MKCoordinateRegionMake(self.location!.coordinate, span)
+//		let span = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+//		request.region = MKCoordinateRegionMake(self.location!.coordinate, span)
 		
-		var responseItems: [MKMapItem]!
+		var responseItems = [MKMapItem]()
 		
 		let search = MKLocalSearch(request: request)
 		search.start { (response, error) in
 			for mapItem in (response?.mapItems)! as [MKMapItem] {
-				print("Item name: \(mapItem.name)")
 				responseItems.append(mapItem)
 			}
-			self.delegate.locationSearchResults(responseItems)
+			self.delegate.updateLocationSearchResults(responseItems)
 		}
 	}
 }

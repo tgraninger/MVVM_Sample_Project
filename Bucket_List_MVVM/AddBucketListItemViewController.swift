@@ -8,16 +8,11 @@
 
 import UIKit
 
-protocol AddBucketListItemViewControllerDelegate: class {
-	func shareUpdates(_ hasItems: Bool)
-}
-
 class AddBucketListItemViewController: UIViewController {
 	
 	@IBOutlet var buttons: [UIButton]!
 	@IBOutlet weak var itemNameField: UITextField!
 	
-	weak var delegate: AddBucketListItemViewControllerDelegate!
 	var viewModel: AddBucketItemViewModel!
 
 	// MARK: - Life Cycle
@@ -47,8 +42,6 @@ class AddBucketListItemViewController: UIViewController {
 	@IBAction func saveButtonTapped(_ sender: UIButton) {
 		viewModel.saveItem()
 		
-		delegate.shareUpdates(true)
-		
 		self.navigationController?.popViewController(animated: true)
 	}
 	
@@ -70,12 +63,14 @@ class AddBucketListItemViewController: UIViewController {
 			viewController.viewModel = AddImageViewModel()
 			
 			viewController.viewModel.newItem = viewModel.newItem
-		} else if segue.identifier == "" {
+		} else if segue.identifier == "addMapItemViewController" {
 			let viewController = segue.destination as! MapViewController
 			
 			viewController.viewModel = MapViewModel()
 			
 			viewController.viewModel.settingLocation = true
+			
+			viewController.viewModel.item = viewModel.newItem
 		}
     }
 }

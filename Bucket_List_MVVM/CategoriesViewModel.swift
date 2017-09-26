@@ -30,7 +30,7 @@ extension CategoriesViewModel: CoreDataClientDelegate {
 	
 	func setCategories(_ categories: [BLCategoryMO]) {
 		dataStore = categories
-		
+				
 		delegate.reloadData()
 	}
 }

@@ -32,6 +32,9 @@ class AddImageViewController: UIViewController {
 		
 		self.edgesForExtendedLayout = []
 		self.automaticallyAdjustsScrollViewInsets = false
+		
+		let nib = UINib(nibName: "ImageCollectionViewCell", bundle: nil)
+		collectionView.register(nib, forCellWithReuseIdentifier: "IMAGE_CELL")
     }
 
     override func didReceiveMemoryWarning() {
