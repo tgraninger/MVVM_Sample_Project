@@ -9,6 +9,6 @@ Data persistence with Core Data.
 Core Location and Map Kit to fetch/display locations.
 
 Future Features:
-Spice up the UI with some vanity and animations.
+Currently working in creative UI features and animations with Core Animation.
 Use Carthage or Cocoapods to integrate Alamofire or Kingfisher.
 
